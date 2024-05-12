@@ -1,74 +1,76 @@
-!DOCTYPE html
-html lang=en
-head
-    meta charset=UTF-8
-    titleПростой Кликерtitle
-    htaapplication
-        applicationname=Simple Clicker
-        border=dialog
-        caption=yes
-        contextmenu=no
-        icon=httpsstackpath.bootstrapcdn.combootstrap4.5.2imgbootstrap-outline.png
-        innerborder=no
-        navigable=yes
-        scroll=yes
-        selection=yes
-        showintaskbar=yes
-        singleinstance=yes
-        sysmenu=yes
-    
-    style
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Простой Кликер</title>
+    <hta:application
+        applicationname="Simple Clicker"
+        border="dialog"
+        caption="yes"
+        contextmenu="no"
+        icon="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/img/bootstrap-outline.png"
+        innerborder="no"
+        navigable="yes"
+        scroll="yes"
+        selection="yes"
+        showintaskbar="yes"
+        singleinstance="yes"
+        sysmenu="yes"
+    />
+    <style>
         body {
-            background-color #f3f3f3;
-            font-family Arial, sans-serif;
-            text-align center;
-            margin 0;
-            padding 0;
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            margin 50px auto;
-            max-width 400px;
-            background-color #fff;
-            padding 20px;
-            box-shadow 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius 8px;
+            margin: 50px auto;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         h1 {
-            color #333;
+            color: #333;
         }
 
         p {
-            color #666;
+            color: #666;
         }
 
         #clickBtn {
-            padding 10px 20px;
-            font-size 20px;
-            margin 20px;
+            padding: 10px 20px;
+            font-size: 20px;
+            margin: 20px;
         }
-    style
-head
-body
-    div class=container
-        h1Простой Кликерh1
-        pКоличество кликов span id=clickCount0spanp
-        button id=clickBtn class=btn btn-primaryКликни здесь!button
-    div
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Простой Кликер</h1>
+        <p>Количество кликов: <span id="clickCount">0</span></p>
+        <button id="clickBtn" class="btn btn-primary">Кликни здесь!</button>
+    </div>
 
-    script defer
-        let clickCount = localStorage.getItem('clickCount')  0;
-        const clickBtn = document.getElementById('clickBtn');
-        const clickCountDisplay = document.getElementById('clickCount');
-
-        clickCountDisplay.textContent = clickCount;
-
-        clickBtn.addEventListener('click', function() {
-            clickCount++;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let clickCount = localStorage.getItem('clickCount') || 0;
+            const clickBtn = document.getElementById('clickBtn');
+            const clickCountDisplay = document.getElementById('clickCount');
+    
             clickCountDisplay.textContent = clickCount;
-            localStorage.setItem('clickCount', clickCount);
+    
+            clickBtn.addEventListener('click', function() {
+                clickCount++;
+                clickCountDisplay.textContent = clickCount;
+                localStorage.setItem('clickCount', clickCount);
+            });
         });
-    script
-body
-html
+    </script>
+</body>
+</html>
