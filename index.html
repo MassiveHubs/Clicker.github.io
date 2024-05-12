@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Простой Кликер</title>
+    <title>Простой Кликер с Магазином Улучшений</title>
     <hta:application
-        applicationname="Simple Clicker"
+        applicationname="Simple Clicker with Upgrades"
         border="dialog"
         caption="yes"
         contextmenu="no"
@@ -48,20 +48,45 @@
             font-size: 20px;
             margin: 20px;
         }
+
+        #upgradeBtn {
+            padding: 8px 16px;
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Простой Кликер</h1>
+        <h1>Простой Кликер с Магазином Улучшений</h1>
         <p>Количество кликов: <span id="clickCount">0</span></p>
         <button id="clickBtn" class="btn btn-primary">Кликни здесь!</button>
+        <p>Улучшения:</p>
+        <button id="upgradeBtn" class="btn btn-success">Улучшение 1 (Цена: 10)</button>
+        <button id="upgradeBtn2" class="btn btn-success">Улучшение 2 (Цена: 20)</button>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let clickCount = localStorage.getItem('clickCount') || 0;
+            let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
+            let upgrades = {
+                upgrade1: {
+                    name: 'Улучшение 1',
+                    cost: 10,
+                    increase: 2,
+                    purchased: 0
+                },
+                upgrade2: {
+                    name: 'Улучшение 2',
+                    cost: 20,
+                    increase: 5,
+                    purchased: 0
+                }
+            };
+    
             const clickBtn = document.getElementById('clickBtn');
             const clickCountDisplay = document.getElementById('clickCount');
+            const upgradeBtn1 = document.getElementById('upgradeBtn');
+            const upgradeBtn2 = document.getElementById('upgradeBtn2');
     
             clickCountDisplay.textContent = clickCount;
     
@@ -70,6 +95,33 @@
                 clickCountDisplay.textContent = clickCount;
                 localStorage.setItem('clickCount', clickCount);
             });
+
+            upgradeBtn1.addEventListener('click', function() {
+                if (clickCount >= upgrades.upgrade1.cost) {
+                    clickCount -= upgrades.upgrade1.cost;
+                    upgrades.upgrade1.purchased++;
+                    upgrades.upgrade1.cost *= 2;
+                    clickCountDisplay.textContent = clickCount;
+                    localStorage.setItem('clickCount', clickCount);
+                    updateUpgradeButtons();
+                }
+            });
+
+            upgradeBtn2.addEventListener('click', function() {
+                if (clickCount >= upgrades.upgrade2.cost) {
+                    clickCount -= upgrades.upgrade2.cost;
+                    upgrades.upgrade2.purchased++;
+                    upgrades.upgrade2.cost *= 2;
+                    clickCountDisplay.textContent = clickCount;
+                    localStorage.setItem('clickCount', clickCount);
+                    updateUpgradeButtons();
+                }
+            });
+
+            function updateUpgradeButtons() {
+                upgradeBtn1.textContent = `${upgrades.upgrade1.name} (Цена: ${upgrades.upgrade1.cost})`;
+                upgradeBtn2.textContent = `${upgrades.upgrade2.name} (Цена: ${upgrades.upgrade2.cost})`;
+            }
         });
     </script>
 </body>
